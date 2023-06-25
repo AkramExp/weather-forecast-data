@@ -1,6 +1,7 @@
 import streamlit as st
 import plotly.express as px
 from backend import get_date
+from datetime import datetime
 
 st.title("Weather Forcast for Upcoming Days")
 place = st.text_input("Place: ").title()
@@ -26,6 +27,8 @@ if place:
                       "Rain": "images/rain.png", "Snow": "images/snow.png"}
             sky_conditions = [dict["weather"][0]["main"] for dict in filtered_data]
             image_paths = [images[condition] for condition in sky_conditions]
-            st.image(image_paths, width=115)
+            dates = [dict["dt_txt"] for dict in filtered_data]
+            dates = [datetime.strptime(date, '%Y-%m-%d %H:%M:%S').strftime("%a, %b %d %H:%M") for date in dates]
+            st.image(image_paths, caption=dates, width=115)
     except KeyError:
         st.write("**THAT PLACE DOES NOT EXIST**", )

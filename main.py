@@ -3,7 +3,7 @@ import plotly.express as px
 from backend import get_date
 
 st.title("Weather Forcast for Upcoming Days")
-place = st.text_input("Place: ")
+place = st.text_input("Place: ").title()
 days = st.slider("Forecast Days", min_value=1, max_value=5,
                  help="Select the number of forecasted days")
 option = st.selectbox("Select data to view",
